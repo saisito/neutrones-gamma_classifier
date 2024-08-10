@@ -1,30 +1,3 @@
-# Project
-
-ML aplications in Water Cherenkov Detector
-
-## Download Files
-
-This project contains large data files that are not stored directly in the repository due to their size. To download the original files, please follow the instructions below:
-
-1. Ensure you have `gdown` installed. If not, you can install it using `pip`:
-
-    ```sh
-    pip install gdown
-    ```
-
-2. Run the `download_files.py` script to download the files from Google Drive:
-
-    ```sh
-    python download_files.py
-    ```
-
-   This script will download all the required files into the `data/` directory.
-
-## Script Details
-
-The `download_files.py` script includes a list of Google Drive file IDs and their respective output filenames. The script uses these IDs to download the files and save them in the specified directory. Below is the content of the `download_files.py` script:
-
-```python
 import gdown
 import os
 
@@ -48,5 +21,3 @@ for file in files:
     gdown.download(url, output, quiet=False)
 
 print("All files have been downloaded")
-
-
