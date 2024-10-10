@@ -2,14 +2,12 @@ import gdown
 import os
 
 files = [
-    {"id": "1ngBJDS2nR2g0X1eYIpRc4A9AG17CrYTe", "name": "Ambe/fondo_ambe_plomo_30cm_nogps_1970_01_01_01h00.dat"},
-    {"id": "17HjDZCe0aWUHeV7iqYSX2FDWF1U96x7k", "name": "AmBe/fondo_ambe_parafinapuraplomo2bloques_30cm_880t1_nogps_1970_01_01_01h00.dat"},
-    {"id": "1vTUrvm11CXtjweLyzNsiXWUi7OknUgE1", "name": "AmBe/fondo_ambe_desnuda_30cm_880t1_nogps_1970_01_01_00h00.dat"},
-    {"id": "1hL343azbJf2WBNdvIn60-MhlbFsFgZlc", "name": "AmBe/fondo_ambe_cadmioparafinaborada_30cm_880t1_nogps_1970_01_01_02h00.dat"},
-    {"id": "1ofxET2MSL1DCedaPAnJyYK-iNOK67AkP", "name": "AmBe/ambe_plomo_30cm_880t1_nogps_1970_01_01_01h00.dat"},
-    {"id": "1gJv9FPWCrN_vDwSRhXIDJGPwicE0HRBR", "name": "AmBe/ambe_parafinapuraplomo2bloques_30cm_880t1_nogps_1970_01_01_01h00.dat"},
-    {"id": "18uftyzsP6ssM2kmBKO96fIp74dS5G-s2", "name": "AmBe/ambe_desnuda_30cm_880t1_nogps_1970_01_01_00h00.dat"},
-    {"id": "1ZAXvR3OMOQvjmCoa-p-O8spagY96tUeC", "name": "AmBe/ambe_cadmioparafinaborada_30cm_880t1_nogps_1970_01_01_02h00.dat"},
+    {"id": "1cWmr7C3Ox0cK6wL5tr3PiDqEjd7X0iap", "name": "Ambe/AmBe_cdparafb_650_nogps_2024_10_02_14h00.dat"},
+    {"id": "1zP-XywxZPinYCqDIOiGDJVFFVFC5driP", "name": "AmBe/AmBe_desnuda_750_nogps_2024_10_02_14h00.dat"},
+    {"id": "1e8snPLFctL00qOLpH4u19wonhSISV7OF", "name": "AmBe/AmBe_plomo(10cm)_440t1_nogps_2024_10_02_13h00.dat"},
+    {"id": "16dxS3s9cxaUUxMKb38fe2ldsqkHUvgdy", "name": "AmBe/fondo_AmBe_cdparafb_650_nogps_2024_10_02_14h00.dat"},
+    {"id": "1hKX2MDz0HU5yrvSax_uAY3TGOOjLKBMZ", "name": "AmBe/fondo_AmBe_desnuda_750_nogps_2024_10_02_15h00.dat"},
+    {"id": "1wUPnZEpWPSPATU8YDUdXvozL0u-HFBA5", "name": "AmBe/fondo_AmBe_plomo(10cm)_440t1_nogps_2024_10_02_14h00.dat"},
 ]
 
 if not os.path.exists('AmBe'):
