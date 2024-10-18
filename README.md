@@ -1,6 +1,6 @@
 # Project
 
-ML aplications in Water Cherenkov Detector
+ML aplications in Water Cherenkov Detector. Currently, all functionalities and analyses are contained within the `process.ipynb` file.
 
 ## Download Files
 
