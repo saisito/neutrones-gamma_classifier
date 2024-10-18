@@ -26,16 +26,15 @@ The `download_files.py` script includes a list of Google Drive file IDs and thei
 
 ```python
 import gdown
-import gdown
 import os
 
 files = [
-    {"id": "1cWmr7C3Ox0cK6wL5tr3PiDqEjd7X0iap", "name": "AmBe_cdparafb.dat"},
-    {"id": "1zP-XywxZPinYCqDIOiGDJVFFVFC5driP", "name": "AmBe_desnuda.dat"},
-    {"id": "1e8snPLFctL00qOLpH4u19wonhSISV7OF", "name": "AmBe_plomo(10cm).dat"},
-    {"id": "16dxS3s9cxaUUxMKb38fe2ldsqkHUvgdy", "name": "fondo_AmBe_cdparafb.dat"},
-    {"id": "1hKX2MDz0HU5yrvSax_uAY3TGOOjLKBMZ", "name": "fondo_AmBe_desnuda.dat"},
-    {"id": "1wUPnZEpWPSPATU8YDUdXvozL0u-HFBA5", "name": "fondo_AmBe_plomo(10cm).dat"},
+    {"id": "17OZ-F1nk55n4eSi1Vt-mx0ca4xkXAwHZ", "name": "AmBe_cdparafb.dat"},
+    {"id": "1cCsaeiXucjjPJbJGTY1Ks5PfxiQdmz_Z", "name": "AmBe_desnuda.dat"},
+    {"id": "1dpx1jDNWDwzfayRgZ1WiQJuSDFyiS_KK", "name": "AmBe_plomo(10cm).dat"},
+    {"id": "1cfn6VZ2-sRI2lFwcCBdoesQKpNukNhTD", "name": "fondo_AmBe_cdparafb.dat"},
+    {"id": "140tUN1M4vtvS9jn6h_ZVpowiltiKA_bx", "name": "fondo_AmBe_desnuda.dat"},
+    {"id": "1c4beBXSOPdcFQ_FX20V342n-vLb36Dxo", "name": "fondo_AmBe_plomo(10cm).dat"},
 ]
 
 # Crear la carpeta 'AmBe' si no existe
@@ -54,6 +53,7 @@ for file in files:
     gdown.download(url, output_path, quiet=False)
 
 print("All files have been downloaded")
+
 
 
 
