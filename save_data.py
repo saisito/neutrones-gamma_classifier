@@ -6,9 +6,6 @@ import re
 import os
 import csv
 
-import os
-import numpy as np
-
 def save_filtered_data_all(file_list, charge_range, output_dir):
     """
     Filters and saves segmented data from input files based on a charge range.
@@ -42,10 +39,6 @@ def save_filtered_data_all(file_list, charge_range, output_dir):
         np.savetxt(os.path.join(output_dir, "fondo_pulsos.csv"), np.array(fondo_data), delimiter=',', fmt='%d')
     
     print(f"Datos guardados en {output_dir}")
-
-    import os
-import numpy as np
-import random
 
 def save_filtered_data_random(file_list, charge_range, output_dir, sample_size):
     """
