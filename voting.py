@@ -100,7 +100,7 @@ param_grid = {
 
 # # Configurar GridSearchCV
 grid_search = GridSearchCV(estimator=voting_clf, param_grid=param_grid, 
-                           scoring='accuracy', cv=5, verbose=2, n_jobs=-1)
+                           scoring='accuracy', cv=5, verbose=2, n_jobs=1)
 
 grid_search.fit(X_train, y_train)
 
