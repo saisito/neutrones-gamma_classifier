@@ -1,16 +1,13 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
-import gc
-
+import os
+from joblib import dump
 from sklearn.ensemble import VotingClassifier
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import accuracy_score, roc_auc_score, classification_report
 from lightgbm import LGBMClassifier
 from xgboost import XGBClassifier
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from catboost import CatBoostClassifier
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import RandomizedSearchCV
 from sklearn.model_selection import train_test_split
 
 # Función para cargar los datos desde múltiples archivos
@@ -66,9 +63,8 @@ X_test = scaler.transform(X_test)
 
 # Clasiciadores de mayor accuracy
 classifiers = {
-    "LGBM": LGBMClassifier(),
-    "GB": GradientBoostingClassifier(),
-    "RF": RandomForestClassifier(),
+    'LGBM' : LGBMClassifier(force_col_wise=True),
+    "CB": CatBoostClassifier(silent=True),
     "XGB": XGBClassifier()
 }
 
@@ -76,38 +72,29 @@ classifiers = {
 voting_clf = VotingClassifier(estimators=list(classifiers.items()), voting='soft')
 
 param_grid = {
-    'LGBM__n_estimators': [50, 100, 200],
+    'LGBM__num_leaves': [64, 128, 256, 512],  
+    'LGBM__max_depth': [3, 5, 7], 
     'LGBM__learning_rate': [0.01, 0.1, 0.2],
-    'LGBM__max_depth': [5, 7, 10],
-    'LGBM__num_leaves': [16, 32, 64],
-    'LGBM__min_child_samples': [20, 30, 50],
-    'LGBM__min_split_gain': [0.0, 0.01, 0.1],
-    'LGBM__lambda_l1': [0, 0.1, 0.5],
-    'LGBM__lambda_l2': [0, 0.1, 0.5],
-
-    'GB__n_estimators': [50, 100, 200],
-    'GB__learning_rate': [0.01, 0.1, 0.2],
-    'GB__max_depth': [3, 5, 7],
+    'LGBM__n_estimators': [100, 200, 300],
     
-    'RF__n_estimators': [50, 100, 200],
-    'RF__max_depth': [None, 10, 20],
-    'RF__min_samples_split': [2, 5, 10],
+    'CB__iterations': [100, 200],
+    'CB__depth': [6, 8, 10],
+    'CB__learning_rate': [0.01, 0.1, 0.2],
     
-    'XGB__n_estimators': [50, 100, 200],
-    'XGB__learning_rate': [0.01, 0.1, 0.2],
-    'XGB__max_depth': [3, 5, 7]
+    'XGB__n_estimators': [100, 200],
+    'XGB__max_depth': [3, 5, 7],
+    'XGB__learning_rate': [0.01, 0.1, 0.2]
 }
 
-# # Configurar GridSearchCV
-grid_search = GridSearchCV(estimator=voting_clf, param_grid=param_grid, 
-                           scoring='accuracy', cv=5, verbose=2, n_jobs=1)
 
-grid_search.fit(X_train, y_train)
+# RandomSearch tranqui para no explotar la compu :)
+random_search = RandomizedSearchCV(estimator=voting_clf, param_distributions=param_grid, 
+                                   scoring='accuracy', cv=3, verbose=2, n_jobs=4, 
+                                   n_iter=40, random_state=42)
 
-voting_clf = grid_search.best_estimator_
+random_search.fit(X_train, y_train)
 
-import os
-from joblib import dump
+voting_clf = random_search.best_estimator_
 
 model_dir = 'models'
 model_filename = 'voting_classifier_model.joblib'
