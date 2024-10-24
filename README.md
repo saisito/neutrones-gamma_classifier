@@ -1,6 +1,6 @@
 # Project Overview
 
-This project focuses on Machine Learning applications in the Water Cherenkov Detector. All functionalities and analyses are currently contained within the `process.ipynb` file.
+This project focuses on Machine Learning applications in Water Cherenkov Detectors. All functionalities and analyses are currently contained within the `process.ipynb` file.
 
 ## Downloading Data Files
 
@@ -18,7 +18,7 @@ This project includes large data files that are not stored directly in the repos
     python download_files.py
     ```
 
-   This script will retrieve all required files and save them in the `data/` directory.
+   This script will retrieve all required files and save them in the `AmBe/` directory.
 
 ## Requirements
 
@@ -30,5 +30,5 @@ pip install -r requirements.txt
 
 ## Contact
 
-- **Email:** said971219@gmail.com
+**Email** said971219@gmail.com
 
