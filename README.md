@@ -1,60 +1,34 @@
-# Project
+# Project Overview
 
-ML aplications in Water Cherenkov Detector. Currently, all functionalities and analyses are contained within the `process.ipynb` file.
+This project focuses on Machine Learning applications in the Water Cherenkov Detector. All functionalities and analyses are currently contained within the `process.ipynb` file.
 
-## Download Files
+## Downloading Data Files
 
-This project contains large data files that are not stored directly in the repository due to their size. To download the original files, please follow the instructions below:
+This project includes large data files that are not stored directly in the repository due to their size. To obtain the original files, please follow these instructions:
 
-1. Ensure you have `gdown` installed. If not, you can install it using `pip`:
+1. **Install `gdown`:** If you don’t have `gdown` installed, you can install it using `pip`:
 
-    ```sh
+    ```bash
     pip install gdown
     ```
 
-2. Run the `download_files.py` script to download the files from Google Drive:
+2. **Download Files:** Execute the `download_files.py` script to download the necessary files from Google Drive:
 
-    ```sh
+    ```bash
     python download_files.py
     ```
 
-   This script will download all the required files into the `data/` directory.
+   This script will retrieve all required files and save them in the `data/` directory.
 
-## Script Details
+## Requirements
 
-The `download_files.py` script includes a list of Google Drive file IDs and their respective output filenames. The script uses these IDs to download the files and save them in the specified directory. Below is the content of the `download_files.py` script:
+To run this project, you need to install several dependencies. You can easily do this by using the `requirements.txt` file included in the repository. Run the following command in your terminal:
 
-```python
-import gdown
-import os
+```bash
+pip install -r requirements.txt
+```
 
-files = [
-    {"id": "17OZ-F1nk55n4eSi1Vt-mx0ca4xkXAwHZ", "name": "AmBe_cdparafb.dat"},
-    {"id": "1cCsaeiXucjjPJbJGTY1Ks5PfxiQdmz_Z", "name": "AmBe_desnuda.dat"},
-    {"id": "1dpx1jDNWDwzfayRgZ1WiQJuSDFyiS_KK", "name": "AmBe_plomo(10cm).dat"},
-    {"id": "1cfn6VZ2-sRI2lFwcCBdoesQKpNukNhTD", "name": "fondo_AmBe_cdparafb.dat"},
-    {"id": "140tUN1M4vtvS9jn6h_ZVpowiltiKA_bx", "name": "fondo_AmBe_desnuda.dat"},
-    {"id": "1c4beBXSOPdcFQ_FX20V342n-vLb36Dxo", "name": "fondo_AmBe_plomo(10cm).dat"},
-]
+## Contact
 
-# Crear la carpeta 'AmBe' si no existe
-if not os.path.exists('AmBe'):
-    os.makedirs('AmBe')
-
-# Descargar los archivos
-for file in files:
-    url = f"https://drive.google.com/uc?id={file['id']}"
-    output = file["name"]
-    
-    # Crear la ruta completa para guardar el archivo
-    output_path = os.path.join('AmBe', output)
-    
-    # Descargar el archivo
-    gdown.download(url, output_path, quiet=False)
-
-print("All files have been downloaded")
-
-
-
-
+- **Email:** said971219@gmail.com
 
