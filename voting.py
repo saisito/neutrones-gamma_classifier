@@ -2,12 +2,12 @@ import numpy as np
 import os
 from joblib import dump
 from sklearn.ensemble import VotingClassifier
-from sklearn.model_selection import GridSearchCV
 from lightgbm import LGBMClassifier
-from xgboost import XGBClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from catboost import CatBoostClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import RandomizedSearchCV
+from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 
 # Función para cargar los datos desde múltiples archivos
@@ -61,36 +61,58 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
+#Filtrar por las caracteristicas mas importantes
+selected_features = [7, 8, 9, 10, 13] 
+X_train = X_train[:, selected_features]
+X_test = X_test[:, selected_features]
+
 # Clasiciadores de mayor accuracy
 classifiers = {
-    'LGBM' : LGBMClassifier(force_col_wise=True),
-    "CB": CatBoostClassifier(silent=True),
-    "XGB": XGBClassifier()
+    "CatBoost": CatBoostClassifier(silent=True),
+    "LightGBM": LGBMClassifier(force_col_wise=True, verbose=-1,),
+    "RandomForest": RandomForestClassifier(),
+    "GradientBoosting": GradientBoostingClassifier(),
+    "XGBoost": XGBClassifier()
 }
 
 # Crear el VotingClassifier
 voting_clf = VotingClassifier(estimators=list(classifiers.items()), voting='soft')
 
-param_grid = {
-    'LGBM__num_leaves': [64, 128, 256, 512],  
-    'LGBM__max_depth': [3, 5, 7], 
-    'LGBM__learning_rate': [0.01, 0.1, 0.2],
-    'LGBM__n_estimators': [100, 200, 300],
-    
-    'CB__iterations': [100, 200],
-    'CB__depth': [6, 8, 10],
-    'CB__learning_rate': [0.01, 0.1, 0.2],
-    
-    'XGB__n_estimators': [100, 200],
-    'XGB__max_depth': [3, 5, 7],
-    'XGB__learning_rate': [0.01, 0.1, 0.2]
+param_dist = {
+    'CatBoost__iterations': [100, 200, 300],
+    'CatBoost__learning_rate': [0.01, 0.1, 0.2],
+    'CatBoost__depth': [4, 6, 8],
+
+    'LightGBM__num_leaves': [31, 63, 127],
+    'LightGBM__learning_rate': [0.01, 0.1, 0.2],
+    'LightGBM__n_estimators': [100, 200, 300],
+    'LightGBM__max_depth': [-1, 5, 10],
+
+    'RandomForest__n_estimators': [100, 200, 300],
+    'RandomForest__max_depth': [5, 10, 15],
+
+    'GradientBoosting__n_estimators': [100, 200, 300],
+    'GradientBoosting__learning_rate': [0.01, 0.1, 0.2],
+    'GradientBoosting__max_depth': [3, 5, 7],
+
+    'XGBoost__max_depth': [3, 5, 7],
+    'XGBoost__learning_rate': [0.01, 0.1, 0.2],
+    'XGBoost__n_estimators': [100, 200, 300],
+    'XGBoost__reg_alpha': [0, 0.1, 0.5],
+    'XGBoost__reg_lambda': [1, 1.5, 2]
 }
 
 
 # RandomSearch tranqui para no explotar la compu :)
-random_search = RandomizedSearchCV(estimator=voting_clf, param_distributions=param_grid, 
-                                   scoring='accuracy', cv=3, verbose=2, n_jobs=4, 
-                                   n_iter=40, random_state=42)
+random_search = RandomizedSearchCV(
+    estimator=voting_clf, 
+    param_distributions=param_dist, 
+    n_iter=50,  # Número de iteraciones para explorar el espacio de hiperparámetros
+    scoring='accuracy', 
+    cv=5,  # Validación cruzada
+    random_state=42, 
+    n_jobs=4  
+)
 
 random_search.fit(X_train, y_train)
 
