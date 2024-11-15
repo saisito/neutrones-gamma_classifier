@@ -30,5 +30,5 @@ pip install -r requirements.txt
 
 ## Contact
 
-**Email** said971219@gmail.com
+**Email** alejandro.nunez@ib.edu.ar
 
